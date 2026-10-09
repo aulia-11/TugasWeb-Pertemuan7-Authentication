@@ -1,7 +1,6 @@
 <?php
 session_start();
 
-// Mengecek apakah user sudah login
 if (!isset($_SESSION["username"], $_SESSION["email"])) {
     header("Location: login.php");
     exit;

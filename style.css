@@ -43,7 +43,6 @@ body {
     line-height: 1.6;
 }
 
-/* Form */
 
 .form-group {
     text-align: left;
@@ -76,7 +75,6 @@ body {
     box-shadow: 0 0 0 3px rgba(165, 108, 193, 0.12);
 }
 
-/* Button */
 
 button,
 .btn {
@@ -105,8 +103,6 @@ button:hover,
     background: #8f55ad;
 }
 
-/* Link */
-
 .link-text {
     margin-top: 20px;
     color: #777;
@@ -123,7 +119,6 @@ button:hover,
     text-decoration: underline;
 }
 
-/* Alert */
 
 .alert {
     padding: 12px 15px;
@@ -150,7 +145,6 @@ button:hover,
     color: #26733b;
 }
 
-/* Dashboard */
 
 .dashboard-card {
     max-width: 500px;
@@ -184,7 +178,6 @@ button:hover,
     background: #c95668;
 }
 
-/* Button group */
 
 .button-group {
     display: flex;
@@ -205,7 +198,6 @@ button:hover,
     background: #e1d3ea;
 }
 
-/* Responsive */
 
 @media (max-width: 500px) {
 

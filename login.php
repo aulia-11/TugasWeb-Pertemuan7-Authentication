@@ -6,18 +6,18 @@ $email = "";
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
-    // Membersihkan input
+
     $email = htmlspecialchars(trim($_POST["email"] ?? ""));
     $password = $_POST["password"] ?? "";
 
-    // Validasi input
+
     if (empty($email) || empty($password)) {
         $errors = "Email dan password wajib diisi.";
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $errors = "Format email tidak valid.";
     } else {
 
-        // Membaca users.json
+     
         $file = "users.json";
 
         if (file_exists($file)) {
@@ -32,24 +32,20 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         $loginSuccess = false;
 
-        // Mencari user berdasarkan email
+
         foreach ($users as $user) {
 
             if (strtolower($user["email"]) === strtolower($email)) {
 
-                // Mengecek password dengan hash
                 if (password_verify($password, $user["password"])) {
 
-                    // Mengganti ID session setelah login berhasil
                     session_regenerate_id(true);
 
-                    // Membuat session
                     $_SESSION["username"] = $user["name"];
                     $_SESSION["email"] = $user["email"];
 
                     $loginSuccess = true;
 
-                    // Masuk ke dashboard
                     header("Location: dashboard.php");
                     exit;
                 }

@@ -9,36 +9,30 @@ $email = "";
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
-    // Mengambil dan membersihkan input
-    $name = htmlspecialchars(trim($_POST["name"] ?? ""));
-    $email = htmlspecialchars(trim($_POST["email"] ?? ""));
+    $name = trim($_POST["name"] ?? "");
+    $email = trim($_POST["email"] ?? "");
     $password = $_POST["password"] ?? "";
 
-    // Validasi nama
     if (empty($name)) {
         $errors[] = "Nama wajib diisi.";
     }
 
-    // Validasi email
     if (empty($email)) {
         $errors[] = "Email wajib diisi.";
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $errors[] = "Format email tidak valid.";
     }
 
-    // Validasi password
     if (empty($password)) {
         $errors[] = "Password wajib diisi.";
     } elseif (strlen($password) < 6) {
         $errors[] = "Password minimal 6 karakter.";
     }
 
-    // Jika validasi berhasil
     if (empty($errors)) {
 
         $file = "users.json";
 
-        // Membaca users.json
         if (file_exists($file)) {
             $users = json_decode(file_get_contents($file), true);
 
@@ -49,7 +43,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $users = [];
         }
 
-        // Cek email duplikat
         foreach ($users as $user) {
             if (strtolower($user["email"]) === strtolower($email)) {
                 $errors[] = "Email sudah terdaftar.";
@@ -57,26 +50,21 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             }
         }
 
-        // Jika email belum digunakan
         if (empty($errors)) {
 
-            // Mengamankan password dengan hashing
             $hashedPassword = password_hash(
                 $password,
                 PASSWORD_DEFAULT
             );
 
-            // Membuat data user baru
             $newUser = [
                 "name" => $name,
                 "email" => $email,
                 "password" => $hashedPassword
             ];
 
-            // Menambahkan user ke array
             $users[] = $newUser;
 
-            // Menyimpan data ke users.json
             file_put_contents(
                 $file,
                 json_encode($users, JSON_PRETTY_PRINT)
